@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "KartProsjekt (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "KartProsjekt (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
