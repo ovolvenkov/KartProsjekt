@@ -1,0 +1,78 @@
+<Page
+x:Class="KartProsjekt.Views.DashboardPage"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+<Grid Padding="32">
+
+    <StackPanel Spacing="12">
+
+        <TextBlock
+            Text="Dashboard"
+            FontSize="32"
+            FontWeight="SemiBold"/>
+
+        <TextBlock
+            Text="Welcome to KartProsjekt"
+            FontSize="16"
+            Opacity="0.65"/>
+
+        <Grid ColumnSpacing="16" Margin="0,24,0,0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border
+                Grid.Column="0"
+                Padding="20"
+                Background="{ThemeResource CardBackgroundFillColorDefault}"
+                CornerRadius="8">
+
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Total Projects"/>
+                    <TextBlock Text="12"
+                                FontSize="32"
+                                FontWeight="Bold"/>
+                </StackPanel>
+
+            </Border>
+
+            <Border
+                Grid.Column="1"
+                Padding="20"
+                Background="{ThemeResource CardBackgroundFillColorDefault}"
+                CornerRadius="8">
+
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Active Tasks"/>
+                    <TextBlock Text="28"
+                                FontSize="32"
+                                FontWeight="Bold"/>
+                </StackPanel>
+
+            </Border>
+
+            <Border
+                Grid.Column="2"
+                Padding="20"
+                Background="{ThemeResource CardBackgroundFillColorDefault}"
+                CornerRadius="8">
+
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Employees"/>
+                    <TextBlock Text="8"
+                                FontSize="32"
+                                FontWeight="Bold"/>
+                </StackPanel>
+
+            </Border>
+
+        </Grid>
+
+    </StackPanel>
+
+</Grid>
+</Page>
