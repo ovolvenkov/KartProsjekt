@@ -35,6 +35,15 @@ public sealed partial class MainPage : Page
             case "Dashboard":
                 ContentFrame.Navigate(typeof(DashboardPage));
                 break;
+            case "Projects":
+                ContentFrame.Navigate(typeof(ProjectsPage));
+                break;
+            case "Tasks":
+                ContentFrame.Navigate(typeof(TasksPage));
+                break;
+            case "Employees":
+                ContentFrame.Navigate(typeof(EmployeesPage));
+                break; 
 
                 // Additional pages will be added here
         }
