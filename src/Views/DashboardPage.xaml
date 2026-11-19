@@ -31,14 +31,19 @@ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
                 Background="{ThemeResource CardBackgroundFillColorDefault}"
                 CornerRadius="8">
 
-                <StackPanel Spacing="8">
-                    <TextBlock Text="Total Projects"/>
-                    <TextBlock Text="12"
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Total Projects"/>
+                        <TextBlock Text="{x:Bind ViewModel.Counter, Mode=OneWay}"
                                 FontSize="32"
                                 FontWeight="Bold"/>
-                </StackPanel>
-
-            </Border>
+                        <Button Style="{StaticResource AccentButtonStyle}" 
+                                Content="Add project"
+                                Command="{x:Bind ViewModel.IncrementCounterCommand}"/>
+                        <Button Style="{StaticResource ButtonRevealStyle}" 
+                                Content="Remove project"
+                                Command="{x:Bind ViewModel.DecrementCounterCommand}"/>
+                    </StackPanel>
+             </Border>
 
             <Border
                 Grid.Column="1"
