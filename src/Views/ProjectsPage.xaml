@@ -3,16 +3,106 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Grid Padding="32">
-        <StackPanel Spacing="12">
-            <TextBlock
-                Text="Projects"
-                FontSize="32"
-                FontWeight="SemiBold"/>
+    <Grid Padding="32"
+          RowSpacing="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <TextBlock
-                Text="Manage your projects"
-                Opacity="0.65"/>
-        </StackPanel>
+        <!-- Page Header -->
+        <Grid Grid.Row="0" ColumnSpacing="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Title and project count -->
+            <StackPanel Grid.Column="0" Spacing="8">
+
+                <TextBlock
+                    Text="Projects"
+                    FontSize="32"
+                    FontWeight="SemiBold"/>
+
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <TextBlock
+                        Text="Total projects:"
+                        Opacity="0.65"/>
+
+                    <TextBlock
+                        Text="{Binding TotalProjects}"
+                        FontWeight="SemiBold"/>
+                </StackPanel>
+
+            </StackPanel>
+
+            <!-- Add Project Button -->
+            <Button
+                Grid.Column="1"
+                Content="＋ Add Project"
+                Command="{Binding AddProjectCommand}"
+                VerticalAlignment="Center"
+                Padding="16,10"
+                CornerRadius="8"/>
+
+        </Grid>
+
+
+        <!-- Projects List -->
+        <ListView
+            Grid.Row="1"
+            ItemsSource="{Binding Projects}"
+            SelectionMode="None"
+            IsItemClickEnabled="False">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+
+                    <Border
+                        Padding="16"
+                        Margin="0,0,0,8"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+
+                        <StackPanel Spacing="8">
+
+                            <TextBlock
+                                Text="{Binding Name}"
+                                FontSize="20"
+                                FontWeight="SemiBold"/>
+
+                            <TextBlock
+                                Text="{Binding Description}"
+                                Opacity="0.65"
+                                TextWrapping="Wrap"/>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock
+                                    Text="{Binding Status}"
+                                    Grid.Column="0"/>
+
+                                <TextBlock
+                                    Text="{Binding Budget}"
+                                    Grid.Column="1"
+                                    FontWeight="SemiBold"/>
+
+                            </Grid>
+
+                        </StackPanel>
+
+                    </Border>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+
     </Grid>
 </Page>
