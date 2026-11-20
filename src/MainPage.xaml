@@ -10,6 +10,7 @@
 
 	<NavigationView
         x:Name="NavView"
+        Background="{ThemeResource AppBackgroundBrush}"
         PaneDisplayMode="Left"
         IsBackButtonVisible="Collapsed"
         IsSettingsVisible="False"
@@ -50,6 +51,16 @@
 			</NavigationViewItem>
 
 		</NavigationView.MenuItems>
+
+		<NavigationView.FooterMenuItems>
+			<NavigationViewItem
+                Content="Settings"
+                Tag="Settings">
+				<NavigationViewItem.Icon>
+					<SymbolIcon Symbol="Setting"/>
+				</NavigationViewItem.Icon>
+			</NavigationViewItem>
+		</NavigationView.FooterMenuItems>
 
 		<Frame x:Name="ContentFrame"/>
 	</NavigationView>

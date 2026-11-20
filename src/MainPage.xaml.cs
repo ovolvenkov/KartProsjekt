@@ -1,5 +1,6 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using KartProsjekt.Services;
 using KartProsjekt.Views;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -17,10 +18,25 @@ public sealed partial class MainPage : Page
     {
         InitializeComponent();
 
-        // TODO: Add your initialization logic here.
+        var settings = AppSettingsService.Instance;
+        settings.SettingsChanged += OnSettingsChanged;
+        ApplySettings(settings);
+
         // Select the default page
         NavView.SelectedItem = NavView.MenuItems[0];
         ContentFrame.Navigate(typeof(DashboardPage));
+    }
+
+    private void OnSettingsChanged(object? sender, EventArgs args)
+    {
+        ApplySettings(AppSettingsService.Instance);
+    }
+
+    private void ApplySettings(AppSettingsService settings)
+    {
+        NavView.PaneDisplayMode = settings.IsCompactNavigation
+            ? NavigationViewPaneDisplayMode.LeftCompact
+            : NavigationViewPaneDisplayMode.Left;
     }
 
     private void NavView_SelectionChanged(
@@ -44,8 +60,9 @@ public sealed partial class MainPage : Page
             case "Employees":
                 ContentFrame.Navigate(typeof(EmployeesPage));
                 break; 
-
-                // Additional pages will be added here
+            case "Settings":
+                ContentFrame.Navigate(typeof(SettingsPage));
+                break;
         }
     }
 }

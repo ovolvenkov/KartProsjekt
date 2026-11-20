@@ -10,7 +10,28 @@
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <!-- Other merged dictionaries here -->
             </ResourceDictionary.MergedDictionaries>
-            <!-- Other app resources here -->
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Default">
+                    <SolidColorBrush x:Key="AppBackgroundBrush" Color="#FFF5F5F5"/>
+                    <SolidColorBrush x:Key="AppCardBackgroundBrush" Color="#FFFFFFFF"/>
+                    <SolidColorBrush x:Key="AppBorderBrush" Color="#FFE5E5E5"/>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="AppBackgroundBrush" Color="#FFF5F5F5"/>
+                    <SolidColorBrush x:Key="AppCardBackgroundBrush" Color="#FFFFFFFF"/>
+                    <SolidColorBrush x:Key="AppBorderBrush" Color="#FFE5E5E5"/>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="AppBackgroundBrush" Color="#FF000000"/>
+                    <SolidColorBrush x:Key="AppCardBackgroundBrush" Color="#FF0A0A0A"/>
+                    <SolidColorBrush x:Key="AppBorderBrush" Color="#FF242424"/>
+                    <SolidColorBrush x:Key="CardBackgroundFillColorDefault" Color="#FF0A0A0A"/>
+                    <SolidColorBrush x:Key="ControlFillColorDefaultBrush" Color="#FF0A0A0A"/>
+                    <SolidColorBrush x:Key="ControlFillColorSecondaryBrush" Color="#FF141414"/>
+                    <SolidColorBrush x:Key="ControlFillColorTertiaryBrush" Color="#FF1F1F1F"/>
+                    <SolidColorBrush x:Key="LayerFillColorDefaultBrush" Color="#FF0A0A0A"/>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

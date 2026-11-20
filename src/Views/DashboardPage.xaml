@@ -3,7 +3,7 @@ x:Class="KartProsjekt.Views.DashboardPage"
 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-<Grid Padding="32">
+<Grid Padding="32" Background="{ThemeResource AppBackgroundBrush}">
 
     <StackPanel Spacing="12">
 
@@ -28,7 +28,7 @@ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
             <Border
                 Grid.Column="0"
                 Padding="20"
-                Background="{ThemeResource CardBackgroundFillColorDefault}"
+                Background="{ThemeResource AppCardBackgroundBrush}"
                 CornerRadius="8">
 
                     <StackPanel Spacing="8">
@@ -48,7 +48,7 @@ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
             <Border
                 Grid.Column="1"
                 Padding="20"
-                Background="{ThemeResource CardBackgroundFillColorDefault}"
+                Background="{ThemeResource AppCardBackgroundBrush}"
                 CornerRadius="8">
 
                 <StackPanel Spacing="8">
@@ -63,7 +63,7 @@ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
             <Border
                 Grid.Column="2"
                 Padding="20"
-                Background="{ThemeResource CardBackgroundFillColorDefault}"
+                Background="{ThemeResource AppCardBackgroundBrush}"
                 CornerRadius="8">
 
                 <StackPanel Spacing="8">
