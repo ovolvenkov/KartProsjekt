@@ -1,6 +1,7 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using KartProsjekt.Services;
+using KartProsjekt.ViewModels;
 using KartProsjekt.Views;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -14,6 +15,8 @@ namespace KartProsjekt;
 /// </summary>
 public sealed partial class MainPage : Page
 {
+    private readonly ProjectsViewModel _projectsViewModel = new();
+
     public MainPage()
     {
         InitializeComponent();
@@ -24,7 +27,7 @@ public sealed partial class MainPage : Page
 
         // Select the default page
         NavView.SelectedItem = NavView.MenuItems[0];
-        ContentFrame.Navigate(typeof(DashboardPage));
+        ContentFrame.Navigate(typeof(DashboardPage), _projectsViewModel);
     }
 
     private void OnSettingsChanged(object? sender, EventArgs args)
@@ -49,10 +52,10 @@ public sealed partial class MainPage : Page
         switch (selectedItem.Tag?.ToString())
         {
             case "Dashboard":
-                ContentFrame.Navigate(typeof(DashboardPage));
+                ContentFrame.Navigate(typeof(DashboardPage), _projectsViewModel);
                 break;
             case "Projects":
-                ContentFrame.Navigate(typeof(ProjectsPage));
+                ContentFrame.Navigate(typeof(ProjectsPage), _projectsViewModel);
                 break;
             case "Tasks":
                 ContentFrame.Navigate(typeof(TasksPage));

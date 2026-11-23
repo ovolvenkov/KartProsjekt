@@ -13,8 +13,6 @@ namespace KartProsjekt;
 /// </summary>
 public sealed partial class MainWindow : Window
 {
-    //public MainViewModel ViewModel { get; set; } = new();
-
     public MainWindow()
     {
         InitializeComponent();

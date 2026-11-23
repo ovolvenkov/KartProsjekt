@@ -33,15 +33,12 @@ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
                     <StackPanel Spacing="8">
                         <TextBlock Text="Total Projects"/>
-                        <TextBlock Text="{x:Bind ViewModel.Counter, Mode=OneWay}"
+                        <TextBlock Text="{Binding TotalProjects}"
                                 FontSize="32"
                                 FontWeight="Bold"/>
                         <Button Style="{StaticResource AccentButtonStyle}" 
                                 Content="Add project"
-                                Command="{x:Bind ViewModel.IncrementCounterCommand}"/>
-                        <Button Style="{StaticResource ButtonRevealStyle}" 
-                                Content="Remove project"
-                                Command="{x:Bind ViewModel.DecrementCounterCommand}"/>
+                                Command="{Binding AddProjectCommand}"/>
                     </StackPanel>
              </Border>
 
