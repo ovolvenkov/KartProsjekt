@@ -17,4 +17,13 @@ public sealed partial class DashboardPage : Page
         DataContext = e.Parameter as ProjectsViewModel
             ?? throw new InvalidOperationException("DashboardPage requires a ProjectsViewModel.");
     }
+
+    private async void AddProject_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        var project = await AddProjectDialog.ShowForAsync(XamlRoot);
+        if (project is not null && DataContext is ProjectsViewModel viewModel)
+        {
+            viewModel.AddProject(project);
+        }
+    }
 }

@@ -38,7 +38,7 @@ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
                                 FontWeight="Bold"/>
                         <Button Style="{StaticResource AccentButtonStyle}" 
                                 Content="Add project"
-                                Command="{Binding AddProjectCommand}"/>
+                                Click="AddProject_Click"/>
                     </StackPanel>
              </Border>
 

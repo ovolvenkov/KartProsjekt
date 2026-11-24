@@ -42,7 +42,7 @@
             <Button
                 Grid.Column="1"
                 Content="＋ Add Project"
-                Command="{Binding AddProjectCommand}"
+                Click="AddProject_Click"
                 VerticalAlignment="Center"
                 Padding="16,10"
                 CornerRadius="8"/>

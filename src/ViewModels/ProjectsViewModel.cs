@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using KartProsjekt.Models;
 using System.Collections.ObjectModel;
 
@@ -41,17 +40,8 @@ public partial class ProjectsViewModel : ObservableObject
         Projects.CollectionChanged += (_, _) => OnPropertyChanged(nameof(TotalProjects));
     }
 
-    [RelayCommand]
-    private void AddProject()
+    public void AddProject(Project project)
     {
-        var project = new Project
-        {
-            Name = "New Project",
-            Description = "New project description",
-            Budget = 50000,
-            Status = "Planned"
-        };
-
         Projects.Add(project);
     }
 }
