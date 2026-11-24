@@ -5,7 +5,7 @@ namespace KartProsjekt.Models;
 
 public partial class Project : ObservableObject
 {
-    public Guid Id { get; } = Guid.NewGuid();
+    public Guid Id { get; private set; } = Guid.NewGuid();
 
     [ObservableProperty]
     private string _name = string.Empty;
