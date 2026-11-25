@@ -1,8 +1,9 @@
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using KartProsjekt.Services;
 using KartProsjekt.ViewModels;
 using KartProsjekt.Views;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -15,7 +16,7 @@ namespace KartProsjekt;
 /// </summary>
 public sealed partial class MainPage : Page
 {
-    private readonly ProjectsViewModel _projectsViewModel = new();
+    private readonly ProjectsViewModel _projectsViewModel = App.Services.GetRequiredService<ProjectsViewModel>();
 
     public MainPage()
     {
