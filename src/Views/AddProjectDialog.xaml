@@ -8,13 +8,72 @@
     DefaultButton="Primary"
     PrimaryButtonClick="OnPrimaryButtonClick">
 
+    <!-- Provides scrolling for the extended project creation form. -->
     <ScrollViewer MaxHeight="500">
-        <StackPanel Spacing="12">
-            <TextBox
-                Header="Project name"
-                PlaceholderText="Enter a project name"
-                Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <StackPanel Spacing="16">
 
+            <!-- General project information. -->
+            <TextBlock
+                Text="General information"
+                Style="{StaticResource SubtitleTextBlockStyle}"/>
+
+            <!-- Arranges project fields in a two-column layout. -->
+            <Grid ColumnSpacing="12" RowSpacing="12">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBox
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Header="Project number"
+                    Text="{Binding ProjectNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBox
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Header="Project name"
+                    Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Header="Municipality"
+                    Text="{Binding Municipality, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Header="Project manager"
+                    Text="{Binding ProjectManager, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <ComboBox
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Header="Category"
+                    HorizontalAlignment="Stretch"
+                    ItemsSource="{Binding CategoryOptions}"
+                    SelectedItem="{Binding Category, Mode=TwoWay}"/>
+
+                <ComboBox
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Header="Status"
+                    HorizontalAlignment="Stretch"
+                    ItemsSource="{Binding StatusOptions}"
+                    SelectedItem="{Binding Status, Mode=TwoWay}"/>
+
+            </Grid>
+
+            <!-- Provides a multiline project description field. -->
             <TextBox
                 Header="Description"
                 PlaceholderText="Enter a description"
@@ -23,20 +82,93 @@
                 TextWrapping="Wrap"
                 Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <TextBox
-                Header="Budget"
-                PlaceholderText="Enter a budget"
-                Text="{Binding Budget, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <!-- Project financial information. -->
+            <TextBlock
+                Text="Financial information"
+                Style="{StaticResource SubtitleTextBlockStyle}"/>
 
-            <ComboBox
-                Header="Status"
-                ItemsSource="{Binding StatusOptions}"
-                SelectedItem="{Binding Status, Mode=TwoWay}"/>
+            <Grid ColumnSpacing="12">
 
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox
+                    Grid.Column="0"
+                    Header="Budget (NOK)"
+                    Text="{Binding Budget, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBox
+                    Grid.Column="1"
+                    Header="Actual cost (NOK)"
+                    Text="{Binding ActualCost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            </Grid>
+
+            <!-- Project scheduling, priority and progress. -->
+            <TextBlock
+                Text="Project planning"
+                Style="{StaticResource SubtitleTextBlockStyle}"/>
+
+            <Grid ColumnSpacing="12" RowSpacing="12">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <CalendarDatePicker
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Header="Start date"
+                    HorizontalAlignment="Stretch"
+                    Date="{Binding StartDate, Mode=TwoWay}"/>
+
+                <CalendarDatePicker
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Header="End date"
+                    HorizontalAlignment="Stretch"
+                    Date="{Binding EndDate, Mode=TwoWay}"/>
+
+                <ComboBox
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Header="Priority"
+                    HorizontalAlignment="Stretch"
+                    ItemsSource="{Binding PriorityOptions}"
+                    SelectedItem="{Binding Priority, Mode=TwoWay}"/>
+
+                <NumberBox
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Header="Progress (%)"
+                    Minimum="0"
+                    Maximum="100"
+                    SmallChange="1"
+                    LargeChange="10"
+                    SpinButtonPlacementMode="Inline"
+                    Value="{Binding Progress, Mode=TwoWay}"/>
+
+            </Grid>
+
+            <!-- Controls whether the project is archived. -->
+            <CheckBox
+                Content="Archived project"
+                IsChecked="{Binding IsArchived, Mode=TwoWay}"/>
+
+            <!-- Displays project validation errors. -->
             <TextBlock
                 Text="{Binding ValidationMessage}"
                 Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                 TextWrapping="Wrap"/>
+
         </StackPanel>
     </ScrollViewer>
 </ContentDialog>

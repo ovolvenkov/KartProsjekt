@@ -38,14 +38,27 @@
 
             </StackPanel>
 
-            <!-- Add Project Button -->
-            <Button
+            <StackPanel
                 Grid.Column="1"
-                Content="＋ Add Project"
-                Click="AddProject_Click"
-                VerticalAlignment="Center"
-                Padding="16,10"
-                CornerRadius="8"/>
+                Orientation="Horizontal"
+                Spacing="12"
+                VerticalAlignment="Center">
+
+                <!-- Generates sample projects for DataGrid testing. -->
+                <!--Click="GenerateProjects_Click"-->
+                <Button
+                    x:Name="GenerateProjectsButton"
+                    Content="Generate test projects"
+                    Padding="16,10"
+                    CornerRadius="8"/>
+
+                <!-- Adds a project through the creation form. -->
+                <Button
+                    Content="＋ Add Project"
+                    Click="AddProject_Click"
+                    Padding="16,10"
+                    CornerRadius="8"/>
+            </StackPanel>
 
         </Grid>
 
