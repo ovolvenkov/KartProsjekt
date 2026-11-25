@@ -2,14 +2,19 @@
     x:Class="KartProsjekt.Views.ProjectTablePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:tabular="using:Microsoft.UI.Xaml.Controls.Tabular">
+    xmlns:tabular="using:Microsoft.UI.Xaml.Controls.Tabular"
+    xmlns:local="using:KartProsjekt.ViewModels"
+    xmlns:models="using:KartProsjekt.Models">
 
     <Grid Padding="32"
           Background="{ThemeResource AppBackgroundBrush}"
           RowSpacing="24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Keeps the page title and creation action aligned with the Projects page. -->
@@ -26,38 +31,241 @@
                 FontWeight="SemiBold"
                 VerticalAlignment="Center"/>
 
-            <Button
+            <StackPanel
                 Grid.Column="1"
-                Content="＋ Add Project"
-                Click="AddProject_Click"
-                Padding="16,10"
-                CornerRadius="8"/>
+                Orientation="Horizontal"
+                Spacing="12"
+                VerticalAlignment="Center">
+                <Button
+                    Content="Reset sorting"
+                    Click="ResetSorting_Click"
+                    Padding="16,10"
+                    CornerRadius="8"/>
+                <Button
+                    Content="＋ Add Project"
+                    Click="AddProject_Click"
+                    Padding="16,10"
+                    CornerRadius="8"/>
+            </StackPanel>
         </Grid>
 
-        <!-- Shows the shared project collection in the native read-only TableView. -->
-        <tabular:TableView
+        <!-- Filters the in-memory source and retains the current sorting configuration. -->
+        <ScrollViewer
             Grid.Row="1"
-            ItemsSource="{Binding Projects}"
-            IsReadOnly="True"
-            CanUserSortColumns="False"
+            HorizontalScrollBarVisibility="Auto"
+            HorizontalScrollMode="Auto"
+            VerticalScrollBarVisibility="Disabled"
+            VerticalScrollMode="Disabled">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBox
+                    x:Name="SearchTextBox"
+                    Header="Search"
+                    PlaceholderText="Search projects"
+                    Width="220"
+                    Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    TextChanged="SearchTextBox_TextChanged"/>
+                <ComboBox
+                    Header="Municipality"
+                    Width="160"
+                    ItemsSource="{Binding MunicipalityOptions}"
+                    SelectedItem="{Binding SelectedMunicipality, Mode=TwoWay}"/>
+                <ComboBox
+                    Header="Category"
+                    Width="150"
+                    ItemsSource="{Binding CategoryOptions}"
+                    SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"/>
+                <ComboBox
+                    Header="Status"
+                    Width="150"
+                    ItemsSource="{Binding StatusOptions}"
+                    SelectedItem="{Binding SelectedStatus, Mode=TwoWay}"/>
+                <ComboBox
+                    Header="Priority"
+                    Width="120"
+                    ItemsSource="{Binding PriorityOptions}"
+                    SelectedItem="{Binding SelectedPriority, Mode=TwoWay}"/>
+                <CheckBox
+                    Content="Show archived projects"
+                    VerticalAlignment="Center"
+                    IsChecked="{Binding ShowArchivedProjects, Mode=TwoWay}"/>
+                <Button
+                    Content="Reset filters"
+                    Command="{Binding ResetFiltersCommand}"
+                    VerticalAlignment="Bottom"
+                    Padding="16,10"
+                    CornerRadius="8"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Exposes accessible controls for ordering and prioritizing multiple sort keys. -->
+        <StackPanel Grid.Row="2" Spacing="8">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <ComboBox
+                    Header="Sort column"
+                    Width="210"
+                    ItemsSource="{Binding SortFields}"
+                    DisplayMemberPath="DisplayName"
+                    SelectedItem="{Binding SelectedSortField, Mode=TwoWay}"/>
+                <ComboBox
+                    Header="Direction"
+                    Width="160"
+                    ItemsSource="{Binding SortDirectionOptions}"
+                    SelectedItem="{Binding SelectedSortDirection, Mode=TwoWay}"/>
+                <Button
+                    Content="Add / update sort"
+                    Command="{Binding AddOrUpdateSortCommand}"
+                    VerticalAlignment="Bottom"
+                    Padding="16,10"
+                    CornerRadius="8"/>
+            </StackPanel>
+
+            <Grid ColumnSpacing="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <ListView
+                    Grid.Column="0"
+                    ItemsSource="{Binding SortDescriptors}"
+                    SelectedItem="{Binding SelectedSortDescriptor, Mode=TwoWay}"
+                    SelectionMode="Single"
+                    Height="72">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding PriorityText}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <StackPanel Grid.Column="1" Spacing="4">
+                    <Button Content="Change direction" Command="{Binding ApplySelectedSortDirectionCommand}"/>
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <Button Content="Move up" Command="{Binding MoveSelectedSortUpCommand}"/>
+                        <Button Content="Move down" Command="{Binding MoveSelectedSortDownCommand}"/>
+                    </StackPanel>
+                    <Button Content="Remove sort" Command="{Binding RemoveSelectedSortCommand}"/>
+                </StackPanel>
+            </Grid>
+            <TextBlock
+                Text="{Binding SortStatusText}"
+                AutomationProperties.LiveSetting="Polite"
+                Opacity="0.75"/>
+        </StackPanel>
+
+        <tabular:TableView
+            x:Name="ProjectTable"
+            Grid.Row="3"
+            IsReadOnly="False"
+            CanUserSortColumns="True"
+            Sorting="ProjectTable_Sorting"
+            BeginningEdit="ProjectTable_BeginningEdit"
+            CellEditEnding="ProjectTable_CellEditEnding"
+            AutomationProperties.HelpText="Up and Down navigate rows; F2 starts editing; Enter commits; Escape cancels. Tab navigates headers. Keyboard column sorting and Left or Right cell navigation are not supported by this experimental TableView."
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch">
             <tabular:TableView.Columns>
-                <tabular:TableViewTextColumn Header="Project Number" Width="140" Binding="{Binding ProjectNumber}"/>
-                <tabular:TableViewTextColumn Header="Project Name" Width="200" Binding="{Binding Name}"/>
-                <tabular:TableViewTextColumn Header="Municipality" Width="150" Binding="{Binding Municipality}"/>
-                <tabular:TableViewTextColumn Header="Category" Width="140" Binding="{Binding Category}"/>
-                <tabular:TableViewTextColumn Header="Project Manager" Width="170" Binding="{Binding ProjectManager}"/>
-                <tabular:TableViewTextColumn Header="Budget" Width="130" Binding="{Binding Budget}"/>
-                <tabular:TableViewTextColumn Header="Actual Cost" Width="130" Binding="{Binding ActualCost}"/>
-                <tabular:TableViewTextColumn Header="Status" Width="120" Binding="{Binding Status}"/>
-                <tabular:TableViewTextColumn Header="Priority" Width="100" Binding="{Binding Priority}"/>
-                <tabular:TableViewTextColumn Header="Progress" Width="110" Binding="{Binding Progress}"/>
-                <tabular:TableViewTextColumn Header="Start Date" Width="140" Binding="{Binding StartDate}"/>
-                <tabular:TableViewTextColumn Header="End Date" Width="140" Binding="{Binding EndDate}"/>
-                <tabular:TableViewTextColumn Header="Created At" Width="160" Binding="{Binding CreatedAt}"/>
-                <tabular:TableViewTextColumn Header="Is Archived" Width="120" Binding="{Binding IsArchived}"/>
+                <tabular:TableViewTextColumn Header="Project Number" Width="140" SortMemberPath="ProjectNumber" SortCycle="AscendingDescending" IsReadOnly="True" Binding="{Binding ProjectNumber}"/>
+                <tabular:TableViewTextColumn Header="Project Name" Width="200" SortMemberPath="Name" SortCycle="AscendingDescending" Binding="{Binding Name}">
+                    <tabular:TableViewTextColumn.CellEditingTemplate>
+                        <DataTemplate x:DataType="models:Project">
+                            <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
+                        </DataTemplate>
+                    </tabular:TableViewTextColumn.CellEditingTemplate>
+                </tabular:TableViewTextColumn>
+                <tabular:TableViewTextColumn Header="Municipality" Width="150" SortMemberPath="Municipality" SortCycle="AscendingDescending" Binding="{Binding Municipality}">
+                    <tabular:TableViewTextColumn.CellEditingTemplate>
+                        <DataTemplate x:DataType="models:Project">
+                            <TextBox Text="{Binding Municipality, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
+                        </DataTemplate>
+                    </tabular:TableViewTextColumn.CellEditingTemplate>
+                </tabular:TableViewTextColumn>
+                <tabular:TableViewTextColumn Header="Category" Width="140" SortMemberPath="Category" SortCycle="AscendingDescending" Binding="{Binding Category}">
+                    <tabular:TableViewTextColumn.CellEditingTemplate>
+                        <DataTemplate x:DataType="models:Project">
+                            <ComboBox ItemsSource="{x:Bind local:ProjectTableViewModel.EditableCategoryOptions}"
+                                      SelectedItem="{Binding Category, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
+                        </DataTemplate>
+                    </tabular:TableViewTextColumn.CellEditingTemplate>
+                </tabular:TableViewTextColumn>
+                <tabular:TableViewTextColumn Header="Project Manager" Width="170" SortMemberPath="ProjectManager" SortCycle="AscendingDescending" Binding="{Binding ProjectManager}">
+                    <tabular:TableViewTextColumn.CellEditingTemplate>
+                        <DataTemplate x:DataType="models:Project">
+                            <TextBox Text="{Binding ProjectManager, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
+                        </DataTemplate>
+                    </tabular:TableViewTextColumn.CellEditingTemplate>
+                </tabular:TableViewTextColumn>
+                <tabular:TableViewTextColumn Header="Budget" Width="130" SortMemberPath="Budget" SortCycle="AscendingDescending" Binding="{Binding Budget}">
+                    <tabular:TableViewTextColumn.CellEditingTemplate>
+                        <DataTemplate x:DataType="models:Project">
+                            <NumberBox Value="{Binding Budget, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
+                        </DataTemplate>
+                    </tabular:TableViewTextColumn.CellEditingTemplate>
+                </tabular:TableViewTextColumn>
+                <tabular:TableViewTextColumn Header="Actual Cost" Width="130" SortMemberPath="ActualCost" SortCycle="AscendingDescending" Binding="{Binding ActualCost}">
+                    <tabular:TableViewTextColumn.CellEditingTemplate>
+                        <DataTemplate x:DataType="models:Project">
+                            <NumberBox Value="{Binding ActualCost, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
+                        </DataTemplate>
+                    </tabular:TableViewTextColumn.CellEditingTemplate>
+                </tabular:TableViewTextColumn>
+                <tabular:TableViewTextColumn Header="Status" Width="120" SortMemberPath="Status" SortCycle="AscendingDescending" Binding="{Binding Status}">
+                    <tabular:TableViewTextColumn.CellEditingTemplate>
+                        <DataTemplate x:DataType="models:Project">
+                            <ComboBox ItemsSource="{x:Bind local:ProjectTableViewModel.EditableStatusOptions}"
+                                      SelectedItem="{Binding Status, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
+                        </DataTemplate>
+                    </tabular:TableViewTextColumn.CellEditingTemplate>
+                </tabular:TableViewTextColumn>
+                <tabular:TableViewTextColumn Header="Priority" Width="100" SortMemberPath="Priority" SortCycle="AscendingDescending" Binding="{Binding Priority}">
+                    <tabular:TableViewTextColumn.CellEditingTemplate>
+                        <DataTemplate x:DataType="models:Project">
+                            <ComboBox ItemsSource="{x:Bind local:ProjectTableViewModel.EditablePriorityOptions}"
+                                      SelectedItem="{Binding Priority, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
+                        </DataTemplate>
+                    </tabular:TableViewTextColumn.CellEditingTemplate>
+                </tabular:TableViewTextColumn>
+                <tabular:TableViewTextColumn Header="Progress" Width="110" SortMemberPath="Progress" SortCycle="AscendingDescending" Binding="{Binding Progress}">
+                    <tabular:TableViewTextColumn.CellEditingTemplate>
+                        <DataTemplate x:DataType="models:Project">
+                            <TextBox Text="{Binding Progress, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
+                        </DataTemplate>
+                    </tabular:TableViewTextColumn.CellEditingTemplate>
+                </tabular:TableViewTextColumn>
+                <tabular:TableViewTextColumn Header="Start Date" Width="140" SortMemberPath="StartDate" SortCycle="AscendingDescending" IsReadOnly="True" Binding="{Binding StartDate}"/>
+                <tabular:TableViewTextColumn Header="End Date" Width="140" SortMemberPath="EndDate" SortCycle="AscendingDescending" IsReadOnly="True" Binding="{Binding EndDate}"/>
+                <tabular:TableViewTextColumn Header="Created At" Width="160" SortMemberPath="CreatedAt" SortCycle="AscendingDescending" IsReadOnly="True" Binding="{Binding CreatedAt}"/>
+                <tabular:TableViewTextColumn Header="Is Archived" Width="120" SortMemberPath="IsArchived" SortCycle="AscendingDescending" IsReadOnly="True" Binding="{Binding IsArchived}"/>
             </tabular:TableView.Columns>
+            <tabular:TableView.EmptyTemplate>
+                <DataTemplate>
+                    <StackPanel Padding="24" Spacing="8" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock
+                            Text="No projects match the current filters."
+                            FontSize="18"
+                            FontWeight="SemiBold"/>
+                        <TextBlock
+                            Text="Change or reset the filters to see more projects."
+                            Opacity="0.7"/>
+                    </StackPanel>
+                </DataTemplate>
+            </tabular:TableView.EmptyTemplate>
         </tabular:TableView>
+
+        <Grid Grid.Row="4" ColumnSpacing="16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Grid.Column="0"
+                Text="{Binding ProjectCountText}"
+                AutomationProperties.LiveSetting="Polite"
+                Opacity="0.75"/>
+            <TextBlock
+                Grid.Column="1"
+                Text="{Binding StatusMessage}"
+                AutomationProperties.LiveSetting="Polite"
+                TextTrimming="CharacterEllipsis"
+                Opacity="0.75"/>
+        </Grid>
     </Grid>
 </Page>

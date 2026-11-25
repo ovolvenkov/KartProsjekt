@@ -21,6 +21,9 @@ public static class ServiceConfiguration
         // Registers a shared ViewModel for Dashboard and Projects.
         services.AddSingleton<ProjectsViewModel>();
 
+        // Keeps table presentation state separate while reusing the shared projects.
+        services.AddTransient<ProjectTableViewModel>();
+
         var connectionString = Environment.GetEnvironmentVariable(
             "KARTPROSJEKT_CONNECTION_STRING")
             ?? throw new InvalidOperationException(
