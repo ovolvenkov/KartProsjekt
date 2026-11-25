@@ -8,6 +8,9 @@ namespace KartProsjekt.ViewModels;
 public partial class ProjectsViewModel : ObservableObject
 {
     private readonly ProjectService _projectService;
+    private readonly SemaphoreSlim _projectsLoadLock = new(1, 1);
+    private bool _hasLoadedProjects;
+
     public int TotalProjects => Projects.Count;
 
     public ObservableCollection<Project> Projects { get; } = new()
@@ -51,9 +54,45 @@ public partial class ProjectsViewModel : ObservableObject
         Projects.Add(project);
     }
 
-    // Loads projects from SQL Server and updates the UI collection.
-
+    // Loads projects from SQL Server once for all pages sharing this ViewModel.
     public async Task LoadProjectsAsync()
+    {
+        await _projectsLoadLock.WaitAsync();
+
+        try
+        {
+            if (_hasLoadedProjects)
+            {
+                return;
+            }
+
+            await ReloadProjectsAsync();
+            _hasLoadedProjects = true;
+        }
+        finally
+        {
+            _projectsLoadLock.Release();
+        }
+    }
+
+    // Reloads projects after database changes such as test project generation.
+    public async Task RefreshProjectsAsync()
+    {
+        await _projectsLoadLock.WaitAsync();
+
+        try
+        {
+            await ReloadProjectsAsync();
+            _hasLoadedProjects = true;
+        }
+        finally
+        {
+            _projectsLoadLock.Release();
+        }
+    }
+
+    // Replaces the shared collection with the latest database results.
+    private async Task ReloadProjectsAsync()
     {
         var projects = await _projectService.GetAllAsync();
 
