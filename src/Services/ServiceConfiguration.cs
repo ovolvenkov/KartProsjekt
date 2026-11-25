@@ -12,6 +12,9 @@ public static class ServiceConfiguration
     {
         var services = new ServiceCollection();
 
+        // Registers the test project generation service.
+        services.AddSingleton<ProjectSeeder>();
+
         // Registers the project database service.
         services.AddSingleton<ProjectService>();
 

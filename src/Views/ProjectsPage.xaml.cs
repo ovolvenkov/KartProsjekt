@@ -1,4 +1,6 @@
+using KartProsjekt.Services;
 using KartProsjekt.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
@@ -40,6 +42,40 @@ public sealed partial class ProjectsPage : Page
         if (DataContext is ProjectsViewModel viewModel)
         {
             await viewModel.LoadProjectsAsync();
+        }
+    }
+
+    // Generates test projects and reloads the project collection.
+    private async void GenerateProjects_Click(
+        object sender, RoutedEventArgs e)
+    {
+        GenerateProjectsButton.IsEnabled = false;
+
+        try
+        {
+            var seeder = App.Services.GetRequiredService<ProjectSeeder>();
+            await seeder.SeedAsync(500);
+
+            if (DataContext is ProjectsViewModel viewModel)
+            {
+                await viewModel.LoadProjectsAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            var dialog = new ContentDialog
+            {
+                Title = "Generation failed",
+                Content = ex.Message,
+                CloseButtonText = "OK",
+                XamlRoot = XamlRoot
+            };
+
+            await dialog.ShowAsync();
+        }
+        finally
+        {
+            GenerateProjectsButton.IsEnabled = true;
         }
     }
 }
