@@ -14,6 +14,8 @@
     <EnableMsixTooling>true</EnableMsixTooling>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <!-- Includes Windows App SDK runtime components with the application. -->
+	  <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
 	 <!--Configure WinUI 3 to run as an unpackaged app-->
 	 <WindowsPackageType>None</WindowsPackageType>
 	 <LangVersion>preview</LangVersion>
@@ -61,7 +63,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.*" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.*" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="*" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="*" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.5.4-experimental" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools.WinApp" Version="*" />
   </ItemGroup>
 

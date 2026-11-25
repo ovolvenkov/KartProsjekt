@@ -9,6 +9,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <!-- Other merged dictionaries here -->
+                <!-- Provides the required theme resources for TableView controls. -->
+                <TabularControlsResources xmlns="using:Microsoft.UI.Xaml.Controls.Tabular"/>
             </ResourceDictionary.MergedDictionaries>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Default">
