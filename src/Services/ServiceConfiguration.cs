@@ -12,6 +12,10 @@ public static class ServiceConfiguration
     {
         var services = new ServiceCollection();
 
+        // Registers the project database service.
+        services.AddSingleton<ProjectService>();
+
+        // Registers a shared ViewModel for Dashboard and Projects.
         services.AddSingleton<ProjectsViewModel>();
 
         var connectionString = Environment.GetEnvironmentVariable(
