@@ -58,7 +58,7 @@ public sealed partial class ProjectsPage : Page
 
             if (DataContext is ProjectsViewModel viewModel)
             {
-                await viewModel.LoadProjectsAsync();
+                await viewModel.RefreshProjectsAsync();
             }
         }
         catch (Exception ex)

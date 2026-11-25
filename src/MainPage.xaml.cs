@@ -58,6 +58,9 @@ public sealed partial class MainPage : Page
             case "Projects":
                 ContentFrame.Navigate(typeof(ProjectsPage), _projectsViewModel);
                 break;
+            case "ProjectTable":
+                ContentFrame.Navigate(typeof(ProjectTablePage), _projectsViewModel);
+                break;
             case "Tasks":
                 ContentFrame.Navigate(typeof(TasksPage));
                 break;

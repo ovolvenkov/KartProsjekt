@@ -1,8 +1,7 @@
 <Page
     x:Class="KartProsjekt.Views.ProjectsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-    xmlns:tabular="using:Microsoft.UI.Xaml.Controls.Tabular">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Grid Padding="32"
           Background="{ThemeResource AppBackgroundBrush}"
@@ -50,6 +49,7 @@
                 <Button
                     x:Name="GenerateProjectsButton"
                     Content="Generate test projects"
+                    Click="GenerateProjects_Click"
                     Padding="16,10"
                     CornerRadius="8"/>
 

@@ -35,6 +35,14 @@
 			</NavigationViewItem>
 
 			<NavigationViewItem
+                Content="Projects Table"
+                Tag="ProjectTable">
+				<NavigationViewItem.Icon>
+					<SymbolIcon Symbol="ViewAll"/>
+				</NavigationViewItem.Icon>
+			</NavigationViewItem>
+
+			<NavigationViewItem
                 Content="Tasks"
                 Tag="Tasks">
 				<NavigationViewItem.Icon>

@@ -1,0 +1,63 @@
+<Page
+    x:Class="KartProsjekt.Views.ProjectTablePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:tabular="using:Microsoft.UI.Xaml.Controls.Tabular">
+
+    <Grid Padding="32"
+          Background="{ThemeResource AppBackgroundBrush}"
+          RowSpacing="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Keeps the page title and creation action aligned with the Projects page. -->
+        <Grid Grid.Row="0" ColumnSpacing="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                Grid.Column="0"
+                Text="Project Table"
+                FontSize="32"
+                FontWeight="SemiBold"
+                VerticalAlignment="Center"/>
+
+            <Button
+                Grid.Column="1"
+                Content="＋ Add Project"
+                Click="AddProject_Click"
+                Padding="16,10"
+                CornerRadius="8"/>
+        </Grid>
+
+        <!-- Shows the shared project collection in the native read-only TableView. -->
+        <tabular:TableView
+            Grid.Row="1"
+            ItemsSource="{Binding Projects}"
+            IsReadOnly="True"
+            CanUserSortColumns="False"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+            <tabular:TableView.Columns>
+                <tabular:TableViewTextColumn Header="Project Number" Width="140" Binding="{Binding ProjectNumber}"/>
+                <tabular:TableViewTextColumn Header="Project Name" Width="200" Binding="{Binding Name}"/>
+                <tabular:TableViewTextColumn Header="Municipality" Width="150" Binding="{Binding Municipality}"/>
+                <tabular:TableViewTextColumn Header="Category" Width="140" Binding="{Binding Category}"/>
+                <tabular:TableViewTextColumn Header="Project Manager" Width="170" Binding="{Binding ProjectManager}"/>
+                <tabular:TableViewTextColumn Header="Budget" Width="130" Binding="{Binding Budget}"/>
+                <tabular:TableViewTextColumn Header="Actual Cost" Width="130" Binding="{Binding ActualCost}"/>
+                <tabular:TableViewTextColumn Header="Status" Width="120" Binding="{Binding Status}"/>
+                <tabular:TableViewTextColumn Header="Priority" Width="100" Binding="{Binding Priority}"/>
+                <tabular:TableViewTextColumn Header="Progress" Width="110" Binding="{Binding Progress}"/>
+                <tabular:TableViewTextColumn Header="Start Date" Width="140" Binding="{Binding StartDate}"/>
+                <tabular:TableViewTextColumn Header="End Date" Width="140" Binding="{Binding EndDate}"/>
+                <tabular:TableViewTextColumn Header="Created At" Width="160" Binding="{Binding CreatedAt}"/>
+                <tabular:TableViewTextColumn Header="Is Archived" Width="120" Binding="{Binding IsArchived}"/>
+            </tabular:TableView.Columns>
+        </tabular:TableView>
+    </Grid>
+</Page>
