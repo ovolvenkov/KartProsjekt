@@ -65,6 +65,7 @@
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="*" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.5.4-experimental" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools.WinApp" Version="*" />
+    <PackageReference Include="Syncfusion.Grid.WinUI" Version="35.2.13" />
   </ItemGroup>
 
   <!--

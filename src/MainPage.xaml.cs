@@ -63,6 +63,9 @@ public sealed partial class MainPage : Page
                     typeof(ProjectTablePage),
                     App.Services.GetRequiredService<ProjectTableViewModel>());
                 break;
+            case "SyncfusionDataGrid":
+                ContentFrame.Navigate(typeof(SyncfusionDataGridPage), _projectsViewModel);
+                break;
             case "Tasks":
                 ContentFrame.Navigate(typeof(TasksPage));
                 break;

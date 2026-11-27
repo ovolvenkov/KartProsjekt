@@ -13,6 +13,7 @@ using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Shapes;
 using KartProsjekt.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Syncfusion.Licensing;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -33,6 +34,13 @@ public partial class App : Application
     /// </summary>
     public App()
     {
+        // Register the Syncfusion key from the process environment before any Syncfusion control is created.
+        var syncfusionLicenseKey = Environment.GetEnvironmentVariable("SYNCFUSION_LICENSE_KEY");
+        if (!string.IsNullOrWhiteSpace(syncfusionLicenseKey))
+        {
+            SyncfusionLicenseProvider.RegisterLicense(syncfusionLicenseKey);
+        }
+
         InitializeComponent();
 
         Services = ServiceConfiguration.Configure();

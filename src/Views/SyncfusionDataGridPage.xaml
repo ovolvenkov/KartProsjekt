@@ -1,0 +1,69 @@
+<Page
+    x:Class="KartProsjekt.Views.SyncfusionDataGridPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dataGrid="using:Syncfusion.UI.Xaml.DataGrid"
+    xmlns:grids="using:Syncfusion.UI.Xaml.Grids">
+
+    <Grid Padding="32"
+          Background="{ThemeResource AppBackgroundBrush}"
+          RowSpacing="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            Grid.Row="0"
+            Text="Syncfusion DataGrid"
+            FontSize="32"
+            FontWeight="SemiBold"
+            VerticalAlignment="Center"/>
+
+        <!-- The navigation host passes the shared ProjectsViewModel; this page does not query the database itself. -->
+        <dataGrid:SfDataGrid
+            x:Name="ProjectGrid"
+            Grid.Row="1"
+            ItemsSource="{Binding Projects}"
+            AutoGenerateColumns="False"
+            AllowEditing="False"
+            AllowSorting="True"
+            AllowFiltering="True"
+            AllowGrouping="True"
+            ShowGroupDropArea="True"
+            AllowResizingColumns="True"
+            AllowDraggingColumns="True"
+            ShowRowHeader="True"
+            SelectionMode="Single"
+            SelectionUnit="Any"
+            NavigationMode="Cell"
+            ShowSortNumbers="True"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            AutomationProperties.Name="Projects data grid"
+            AutomationProperties.HelpText="Use Ctrl with column headers to sort by multiple columns. Drag a column header to the group area to group projects.">
+
+            <!-- The first sort descriptor keeps projects ordered by name when the shared collection is loaded. -->
+            <dataGrid:SfDataGrid.SortColumnDescriptions>
+                <grids:SortColumnDescription ColumnName="Name" SortDirection="Ascending"/>
+            </dataGrid:SfDataGrid.SortColumnDescriptions>
+
+            <dataGrid:SfDataGrid.Columns>
+                <dataGrid:GridTextColumn MappingName="ProjectNumber" HeaderText="Project Number" Width="150"/>
+                <dataGrid:GridTextColumn MappingName="Name" HeaderText="Project Name" Width="220"/>
+                <dataGrid:GridTextColumn MappingName="Municipality" HeaderText="Municipality" Width="160"/>
+                <dataGrid:GridTextColumn MappingName="Category" HeaderText="Category" Width="140"/>
+                <dataGrid:GridTextColumn MappingName="ProjectManager" HeaderText="Project Manager" Width="180"/>
+                <dataGrid:GridNumericColumn x:Name="BudgetColumn" MappingName="Budget" HeaderText="Budget (NOK)" Width="150"/>
+                <dataGrid:GridNumericColumn x:Name="ActualCostColumn" MappingName="ActualCost" HeaderText="Actual Cost (NOK)" Width="170"/>
+                <dataGrid:GridTextColumn MappingName="Status" HeaderText="Status" Width="130"/>
+                <dataGrid:GridNumericColumn MappingName="Priority" HeaderText="Priority" Width="110"/>
+                <dataGrid:GridNumericColumn MappingName="Progress" HeaderText="Progress (%)" Width="130"/>
+                <dataGrid:GridDateColumn MappingName="StartDate" HeaderText="Start Date" DisplayDateFormat="dd.MM.yyyy" Width="145"/>
+                <dataGrid:GridDateColumn MappingName="EndDate" HeaderText="End Date" DisplayDateFormat="dd.MM.yyyy" Width="145"/>
+                <dataGrid:GridDateColumn MappingName="CreatedAt" HeaderText="Created At" DisplayDateFormat="dd.MM.yyyy HH:mm" Width="175"/>
+                <dataGrid:GridCheckBoxColumn MappingName="IsArchived" HeaderText="Archived" Width="120"/>
+            </dataGrid:SfDataGrid.Columns>
+        </dataGrid:SfDataGrid>
+    </Grid>
+</Page>

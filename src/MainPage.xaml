@@ -43,6 +43,14 @@
 			</NavigationViewItem>
 
 			<NavigationViewItem
+                Content="Syncfusion DataGrid"
+                Tag="SyncfusionDataGrid">
+				<NavigationViewItem.Icon>
+					<SymbolIcon Symbol="ViewAll"/>
+				</NavigationViewItem.Icon>
+			</NavigationViewItem>
+
+			<NavigationViewItem
                 Content="Tasks"
                 Tag="Tasks">
 				<NavigationViewItem.Icon>
