@@ -23,6 +23,7 @@ public static class ServiceConfiguration
 
         // Keeps table presentation state separate while reusing the shared projects.
         services.AddTransient<ProjectTableViewModel>();
+        services.AddTransient<CommunityTableViewModel>();
 
         var connectionString = Environment.GetEnvironmentVariable(
             "KARTPROSJEKT_CONNECTION_STRING")

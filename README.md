@@ -7,7 +7,8 @@ The project is designed for learning and exploring technologies for future KOS a
 ## Features
 
 - Dashboard and project management.
-- ListView and experimental Microsoft TableView.
+- ListView, experimental Microsoft TableView, and the open-source Community TableView.
+- Community TableView includes column sorting/filtering/grouping, inline edits, selection, clipboard, and CSV export.
 - Sorting, filtering, grouping, and inline editing.
 - SQL Server integration.
 - Test data generation.
@@ -18,6 +19,7 @@ The project is designed for learning and exploring technologies for future KOS a
 - WinUI 3 / XAML
 - Windows App SDK 2.5.4-experimental
 - CommunityToolkit.Mvvm
+- [WinUI.TableView](https://github.com/w-ahmad/WinUI.TableView) 1.5.2 (MIT license)
 - Entity Framework Core
 - Dependency Injection
 - SQL Server 2022
@@ -94,6 +96,7 @@ The application uses self-contained deployment and does not require Windows Deve
 
 - [WinUI 3](https://learn.microsoft.com/en-us/windows/apps/winui/winui3/)
 - [Microsoft TableView](https://learn.microsoft.com/en-us/windows/apps/develop/ui/controls/table-view)
+- [WinUI.TableView](https://w-ahmad.dev/WinUI.TableView/) (MIT)
 - [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/)
 - [Docker](https://docs.docker.com/)
 
@@ -103,3 +106,4 @@ The application uses self-contained deployment and does not require Windows Deve
 - Database data is persisted in a Docker volume.
 - Never commit `.env` or database credentials.
 - The project is under active development.
+- Community TableView multi-column sorting uses Ctrl+Click (the library does not document Shift+Click); validated paste is limited to one cell and is disabled while grouped.

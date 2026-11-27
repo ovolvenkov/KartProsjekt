@@ -63,6 +63,11 @@ public sealed partial class MainPage : Page
                     typeof(ProjectTablePage),
                     App.Services.GetRequiredService<ProjectTableViewModel>());
                 break;
+            case "CommunityTableView":
+                ContentFrame.Navigate(
+                    typeof(CommunityTableViewPage),
+                    App.Services.GetRequiredService<CommunityTableViewModel>());
+                break;
             case "Tasks":
                 ContentFrame.Navigate(typeof(TasksPage));
                 break;
